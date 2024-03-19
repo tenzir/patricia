@@ -1759,6 +1759,8 @@ namespace sk {
     class patricia_map_iterator {
         using iterator_type = patricia_iterator<T, Alloc, is_const>;
         using node_type = patricia_node<T, Alloc>;
+        using node_pointer
+            = std::conditional_t<is_const, node_type const*, node_type*>;
         iterator_type current;
 
     public:
@@ -1773,7 +1775,7 @@ namespace sk {
 
         explicit patricia_map_iterator() noexcept = default;
 
-        explicit patricia_map_iterator(node_type *node) noexcept
+        explicit patricia_map_iterator(node_type_pointer node) noexcept
             : current(iterator_type(node))
         {
         }
